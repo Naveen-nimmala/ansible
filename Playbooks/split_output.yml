@@ -1,0 +1,14 @@
+---
+- name: Discovery play
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Finding uptime
+      shell: "uptime"
+      register: up_time
+    - name: Displaying Discovery info
+      debug:
+      #msg: "{{inventory_hostname}},{{ansible_os_family}},{{ansible_system}},{{ansible_distribution}},{{up_time.stdout.split(',')[0].split('up')[-1]}}"
+       msg: "{{ up_time.stdout.split(',')[0].split('up')[1] }}"
+      # debug:
+      #   msg: "{{ hostvars }}" # to display the all the default ansible vars , we can use setup in ad hoc

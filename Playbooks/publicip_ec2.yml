@@ -1,4 +1,4 @@
----
+#!/usr/local/bin/ansible-playbook
  - name: This play is used to fetch instances info
    hosts: localhost
    connection: local

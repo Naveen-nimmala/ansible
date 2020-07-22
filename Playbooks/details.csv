@@ -1,0 +1,4 @@
+FQDN,HOSTNAME, OS_FAMILY, OS_DIST,DIST_VER, UPTIME
+ansible.server,ansible,RedHat,CentOS,7.8,  9:11
+ip-172-31-43-207.ap-southeast-1.compute.internal,ip-172-31-43-207,RedHat,Amazon,NA,  2:16
+ip-172-31-34-158.ap-southeast-1.compute.internal,ip-172-31-34-158,RedHat,Amazon,NA,  2:15

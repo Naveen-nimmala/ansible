@@ -1,0 +1,40 @@
+---
+ - name: get the details of all the servers
+   hosts: all
+   gather_facts: true
+   tasks:
+    - name: up_time
+      shell: uptime
+      register: up_time
+    - name: print all the detaiils
+      debug:
+       msg:
+        - "{{ ansible_fqdn }}"
+        - "{{ ansible_hostname }}"
+        - "{{ ansible_os_family }}"
+        - "{{ ansible_distribution }}"
+        - "{{ ansible_distribution_version }}"
+        - "{{ up_time.stdout.split(',')[0].split('up')[1] }}"
+    - name: remove the existing csv filters
+      file:
+       path: /ansible/Playbooks/details.csv
+       state: absent
+      delegate_to: localhost
+      run_once: true
+    # - name: creating the existing csv filters
+    #   file:
+    #    path: ./details.csv
+    #    state: touch
+      # delegate_to: localhost
+      # run_once: true
+    - name: adding info to the filters
+      copy:
+       dest: /ansible/Playbooks/details.csv
+       content: "FQDN,HOSTNAME, OS_FAMILY, OS_DIST,DIST_VER, UPTIME\n"
+      delegate_to: localhost
+      run_once: true
+    - name: adding data
+      lineinfile:
+        path: /ansible/Playbooks/details.csv
+        line: "{{ansible_fqdn}},{{ansible_hostname}},{{ansible_os_family}},{{ansible_distribution}},{{ ansible_distribution_version }},{{up_time.stdout.split(',')[0].split('up')[-1]}}"
+      delegate_to: localhost
