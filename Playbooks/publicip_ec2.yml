@@ -1,0 +1,31 @@
+---
+ - name: This play is used to fetch instances info
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: Info about ec2 using ec2_instance_facts
+     ec2_instance_facts:
+      region: ap-southeast-1
+      filters:
+       "tag:names": nodes
+     register: ec2_info
+     tags:
+       - always
+   # - name: Displaying output
+   #   debug: "Key={{ item.0.key }} value={{ item.1 }}"
+   #     #- msg="{{item.public_ip_address}}"
+   #   #with_items: "{{ec2_info.instances}}"
+   #   loop: "{{ ec2_info | dict2items | subelements('value') }}"
+   # - name: Displaying output
+   #   debug: msg="{{ ec2_info | items2dict }}"
+   - command: aws ec2 describe-instances --query "Reservations[*].Instances[*].PublicIpAddress" --output=text
+     register: public_ips
+   - debug:
+       msg: "{{ public_ips.stdout }}"
+     register: ips
+   - copy:
+      content: "{{ ips.msg}}"
+      dest: /ansible/text
+   - name: run shell script
+     shell: /bin/bash /ansible/Playbooks/small.sh >/ansible/Playbooks/hosts

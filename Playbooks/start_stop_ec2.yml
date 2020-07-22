@@ -1,0 +1,10 @@
+---
+ - name: ec2
+   hosts: localhost
+   connection: local
+   gather_facts: no
+   tasks:
+    - ec2:
+        state: running
+        region: ap-southeast-1
+        instance_ids: i-066937dd49e04f349

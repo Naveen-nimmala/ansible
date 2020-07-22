@@ -1,0 +1,15 @@
+---
+ - name: This play is used to fetch instances info
+   hosts: localhost
+   connection: local
+   gather_facts: false
+   tasks:
+   - name: Info about ec2 using ec2_instance_facts
+     ec2_instance_facts:
+      region: ap-southeast-1
+     register: ec2_info
+   - debug: var=ec2_info
+   - ec2:
+       state: running
+       region: ap-southeast-1
+       instance_ids: {{'item.ec2_instance_id'}}

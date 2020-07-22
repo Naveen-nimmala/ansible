@@ -1,0 +1,30 @@
+---
+ - name: Http install
+   hosts: all
+   become: yes
+   gather_facts: no
+   tasks:
+    # - name: httpd
+    #   shell: which httpd
+    #   register: out
+    # # - name: values
+    # #   debug: var=out
+    # - name: absentee
+    #   yum: pkg=httpd state=absent
+    #   when: out.rc == 0
+    - name: install
+      yum: pkg=httpd state=absent
+      # when: out.rc == 0
+
+    # - name: httpd
+    #   yum: pkg=httpd state=installed
+    # - name: python3
+    # : pkg=python3 state=installed
+    # # - name: grep
+    #   raw: yum list | grep python3
+    #   register: data
+    # - name: debug
+    #   debug: var=data
+    #
+    # - name: Install Python
+    #   raw: yum -y install python36
