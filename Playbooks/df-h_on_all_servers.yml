@@ -1,0 +1,13 @@
+---
+ - name: get the details of all the servers
+   hosts: all
+   gather_facts: true
+   tasks:
+    - name: up_time
+      shell: df -h
+      register: files
+    - name: adding data
+      lineinfile:
+        path: /ansible/Playbooks/files.txt
+        line: "{{files}}"
+      delegate_to: localhost

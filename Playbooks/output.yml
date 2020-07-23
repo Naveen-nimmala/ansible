@@ -1,0 +1,11 @@
+---
+ - name: outputs
+   hosts: all
+   gather_facts: true
+   tasks:
+    - debug:
+       msg: "{{ ansible_os_family }}"
+       register: var1
+    - debug:
+        msg: THis is YUM
+      when: var1 == 'Redhat'
