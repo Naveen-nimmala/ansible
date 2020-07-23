@@ -45,3 +45,66 @@
       - terminate
       - never
      with_items: "{{ec2_info.instances}}"
+   - name: Info about ec2 after start ec2_instance_facts
+     ec2_instance_facts:
+        region: ap-southeast-1
+        filters:
+          "tag:names": nodes
+     register: ec2_instance_facts
+     tags:
+       - start
+       - never
+   - set_fact:
+     #      #msg: "{{ ec2_instance_facts | json_query('instances[*].network_interfaces(public_ip)') }} "
+     #      #msg: "{{ ec2_instance_facts | json_query('[*].{Name: public_ip}') }} "
+          msg: "{{ ec2_instance_facts | json_query('instances[*].public_ip_address') }}"
+     tags:
+       - start
+       - never
+   - shell: echo -e "[server]\nlocalhost\n[ec2]" >/ansible/Playbooks/hosts
+     tags:
+      - start
+      - never
+   - shell:
+         cmd: echo "{{item}}" >>/ansible/Playbooks/hosts
+         chdir: /ansible
+     with_items: "{{ msg }}"
+     tags:
+       - start
+       - never
+   # - name:  eec2_instance_facts
+   #   ec2_instance_facts:
+   #      region: ap-southeast-1
+   #      filters:
+   #       "tag:names": nodes
+   #   register: ec2_info_latest
+   #   tags:
+   #    - always
+   # - name: Displaying output
+   #   debug:
+   #     msg: "{{ item.network_interfaces }}"
+   #   with_items: "{{ ec2_info_latest.instances}}"
+   #   register: new_list
+   # - name: output the IPs
+   #   debug:
+   #      msg: "Allocated IP inside the VPC is {{ item.public_ip }}"
+   #   with_items: ec2_info_latest.items
+   # -  add_host:
+   #      hostname: "{{ item.image_id }}"
+   #      groupname: ec2_server
+   #    with_items: ec2_info_latest.instances
+     # with_items: "{{new_list}}"
+
+
+
+
+   # - command: aws ec2 describe-instances --query "Reservations[*].Instances[*].PublicIpAddress" --output=text
+   #     register: public_ips
+   # - debug:
+   #       msg: "{{ public_ips.stdout }}"
+   #     register: ips
+   # - copy:
+   #      content: "{{ ips.msg}}"
+   #      dest: /ansible/text
+   # - name: run shell script
+   #     shell: /bin/bash /ansible/Playbooks/small.sh >/ansible/Playbooks/hosts
