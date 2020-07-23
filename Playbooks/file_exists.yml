@@ -1,0 +1,15 @@
+---
+ - name: check this file exists or not.
+   hosts: localhost
+   vars:
+     app_directory: "/ansible/Playbooks"
+     app_environment: "/passwd"
+   tasks:
+    - name: Check if file exists.
+      stat: "path={{ app_directory }}{{ app_environment }}"
+      register: app_db_exists
+    - debug:
+        msg: "{{ app_db_exists.stat.exists }}"
+    - name: Create file.
+      command: "touch {{ app_directory }}{{ app_environment }}"
+      when: app_db_exists.stat.exists == false

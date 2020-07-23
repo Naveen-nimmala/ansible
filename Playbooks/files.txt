@@ -1,0 +1,24 @@
+/dev/xvda1      7.9G  1.4G  6.4G  18% /
+/dev/mapper/centos-root  6.2G  2.5G  3.7G  41% /
+/dev/sda1               1014M  168M  847M  17% /boot
+Ansible                  113G   80G   34G  71% /ansible
+
+Filesystem               Size  Used Avail Use% Mounted on
+devtmpfs                 484M     0  484M   0% /dev
+tmpfs                    496M  128K  496M   1% /dev/shm
+tmpfs                    496M  6.8M  489M   2% /run
+tmpfs                    496M     0  496M   0% /sys/fs/cgroup
+/dev/mapper/centos-root  6.2G  2.5G  3.7G  41% /
+/dev/sda1               1014M  168M  847M  17% /boot
+Ansible                  113G   80G   34G  71% /ansible
+tmpfs                    100M     0  100M   0% /run/user/1000
+
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        483M   60K  483M   1% /dev
+tmpfs           493M     0  493M   0% /dev/shm
+/dev/xvda1      7.9G  1.4G  6.4G  18% /
+
+Filesystem      Size  Used Avail Use% Mounted on
+devtmpfs        483M   60K  483M   1% /dev
+tmpfs           493M     0  493M   0% /dev/shm
+/dev/xvda1      7.9G  1.4G  6.4G  18% /

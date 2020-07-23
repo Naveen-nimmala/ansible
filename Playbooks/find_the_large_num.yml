@@ -1,0 +1,18 @@
+---
+  - name: simple usage of inline conditional statement ( if else)
+    hosts: localhost
+    gather_facts: false
+    vars_prompt:
+       - name: a_val
+         prompt: "Enter A value"
+         private: no
+       - name: b_val
+         prompt: "Enter B Value "
+         private: no
+    tasks:
+      - debug:
+          msg: "Large value is {{ a_val }}"
+        when: (a_val > b_val)
+      - debug:
+          msg: "Large value is {{ b_val }}"
+        when: (a_val < b_val)

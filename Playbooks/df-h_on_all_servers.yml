@@ -3,11 +3,18 @@
    hosts: all
    gather_facts: true
    tasks:
-    - name: up_time
-      shell: df -h
+    - name: filesystem
+      shell: cat /etc/passwd
       register: files
+    # - stat: path=/ansible/Playbooks/files.txt
+    #   register: fle
+    - file:
+       path: /ansible/Playbooks/files.txt
+       state: touch
+      #when: fle.stat.exists is not definied and not fle.stat.exists
+      run_once: true
     - name: adding data
       lineinfile:
         path: /ansible/Playbooks/files.txt
-        line: "{{files}}"
+        line: "{{files.stdout}}"
       delegate_to: localhost

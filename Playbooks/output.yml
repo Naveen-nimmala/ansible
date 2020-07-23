@@ -1,11 +1,11 @@
 ---
  - name: outputs
-   hosts: all
+   hosts: localhost
    gather_facts: true
    tasks:
     - debug:
        msg: "{{ ansible_os_family }}"
-       register: var1
+      register: var1
     - debug:
         msg: THis is YUM
-      when: var1 == 'Redhat'
+      when: var1.msg == 'RedHat'
