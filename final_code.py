@@ -1,4 +1,3 @@
-# noinspe
 import  fileinput,datetime
 import shutil
 import re
@@ -15,12 +14,12 @@ pattern1 = r"\b\w*.*.com\b"
 pattern2 = r"\b[Ss][Gg]\w*\b"   #^sg.*$
 pattern3 = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b' #^\d\w{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$'
 
-date1 = datetime.date.today()
-sec = datetime.datetime.now()
-time = sec.strftime("%X")
+date = datetime.date.today()
+# sec = datetime.datetime.now()
+# time = sec.strftime("%X")
 
-date = str(date1)+"_"+str(time)
-print(date)
+# date = str(date1)+"_"+str(time)
+# print(date)
 filenames = []
 for (dirpath, dirnames, filename) in walk(directory):
         filenames.extend(filename)
@@ -35,7 +34,7 @@ os_version = platform.system()
     # shutil.copyfile(file, output_filename)
     # count = count + 1
 os.chdir(directory)
-name = "Output_Dir"+"_"+str(date1)
+name = "Output_Dir"+"_"+str(date)
 newdir = os.path.join(directory, name)
 if not os.path.exists(newdir):
     os.makedirs(newdir)
@@ -59,4 +58,3 @@ for filenamee in filenames:
         print(line)
         os.chdir(directory)
         #combined_pat = r'|'.join((pat1, pat2))
-        #stripped = re.sub(combined_pat, '', s2)
